@@ -1,5 +1,5 @@
 ---
-- name: Setup initial storage drive mount
+- name: Setup initial HDD mount
   hosts: storage
   become: true
   vars:
