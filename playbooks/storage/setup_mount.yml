@@ -29,4 +29,3 @@
           state: present
           regexp: "^{{ device }}"
           line: "{{ device }} {{ mount_point }} {{ filesystem_type }} {{ fstab_options }}"
-          validate: "mount -a -f"
