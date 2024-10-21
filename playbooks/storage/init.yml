@@ -1,3 +1,6 @@
 ---
+  - import_playbook: ../generic/update_apt.yml
+    vars:
+      hosts: storage
   - import_playbook: setup_mount.yml
   - import_playbook: setup_samba.yml
