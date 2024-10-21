@@ -2,5 +2,5 @@
 - name: Init playbook to setup storage server
   hosts: storage
   tasks:
-    - include: mount.yml
-    - include: samba.yml
+    - include: setup_mount.yml
+    - include: setup_samba.yml
