@@ -11,7 +11,7 @@ Includes all ansible related things, from "IaC" server deployment to single prog
 3. Installs NFS and sets up exports
 4. Installs samba and sets up samba share
 
-## Storage server
+## Docker server TODO
     ansible-playbook playbooks/docker/init.yml
 
 1. Updates server
