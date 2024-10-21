@@ -1,6 +1,4 @@
 ---
-- name: Prepares storage server
-
 - import_playbook: ../generic/update_apt.yml
   vars:
     target_hosts: storage
