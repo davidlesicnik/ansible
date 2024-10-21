@@ -4,3 +4,4 @@
     target_hosts: storage
 - import_playbook: setup_mount.yml
 - import_playbook: setup_samba.yml
+- import_playbook: setup_nfs.yml

@@ -1,0 +1,31 @@
+---
+- name: Install and configure NFS server
+  hosts: storage
+  become: true
+
+  vars:
+    nfs_exports:
+      - "/mnt/hdd *(rw,sync,no_subtree_check)"
+      - "/mnt/ssd *(rw,sync,no_subtree_check)"
+
+  tasks:
+    - name: Install nfs
+      apt:
+        name: nfs-kernel-server
+        state: present
+
+    - name: Configure NFS exports
+      lineinfile:
+        path: /etc/exports
+        line: "{{ item }}"
+        state: present
+      loop: "{{ nfs_exports }}"
+
+    - name: Start and enable NFS service
+      systemd:
+        name: nfs-server
+        state: started
+        enabled: true
+
+    - name: Export NFS shares
+      command: exportfs -a
