@@ -1,0 +1,56 @@
+---
+- name: Setup Samba
+  hosts: storage
+  become: true
+  vars_files:
+  - vault.yml
+  vars:
+    samba_share_name: "share"
+    samba_shared_dir: "/mnt/hdd/media"
+    samba_user: "david"
+    allowed_hosts: "192.168.10.0/24"
+
+
+  tasks:
+    - name: Install Samba and related packages
+      apt:
+        name: samba
+        state: present
+
+    - name: Add Samba user
+      user:
+        name: "{{ samba_user }}"
+        comment: Samba User
+        shell: /usr/sbin/nologin
+        state: present
+
+    - name: Set Samba password for the user
+      command: "echo '{{ samba_password }}' | smbpasswd -s -a {{ samba_user }}"
+      args:
+        creates: "/var/lib/samba/private/passdb.tdb"
+
+    - name: Add or update the Samba configuration in smb.conf
+      blockinfile:
+        path: /etc/samba/smb.conf
+        block: |
+          [{{ samba_share_name }}]
+          path = {{ samba_shared_dir }}
+          writable = yes
+          guest ok = no
+          valid users = {{ samba_user }}
+          browseable = yes
+          create mask = 0775
+          directory mask = 0775
+          hosts allow = {{ allowed_hosts }}
+
+    - name: Restart Samba services
+      systemd:
+        name: smbd
+        state: restarted
+        enabled: yes
+
+    - name: Ensure the Samba service is running
+      service:
+        name: smbd
+        state: started
+        enabled: yes

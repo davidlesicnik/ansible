@@ -1,0 +1,32 @@
+---
+- name: Setup initial storage drive mount
+  hosts: storage
+  become: true
+  vars:
+    mount_point: "/mnt/hdd"
+    device: "/dev/sdb1"
+    filesystem_type: "ext4"
+    mount_options: "defaults"
+    fstab_options: "defaults,nofail 0 2"
+
+  tasks:
+      - name: Ensure the mount point directory exists
+        file:
+          path: "{{ mount_point }}"
+          state: directory
+
+      - name: Mount the filesystem
+        mount:
+          path: "{{ mount_point }}"
+          src: "{{ device }}"
+          fstype: "{{ filesystem_type }}"
+          opts: "{{ mount_options }}"
+          state: mounted
+          
+      - name: Ensure the device is in fstab with nofail option
+        lineinfile:
+          path: /etc/fstab
+          state: present
+          regexp: "^{{ device }}"
+          line: "{{ device }} {{ mount_point }} {{ filesystem_type }} {{ fstab_options }}"
+          validate: "mount -a -f"
