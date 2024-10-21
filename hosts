@@ -1,8 +1,6 @@
 [ansible]
 localhost
 
-[storage]
+[homelab]
 storage
-
-[docker]
 docker
