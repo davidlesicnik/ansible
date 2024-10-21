@@ -1,7 +1,7 @@
 ---
-- name: Prepares stroage server
+- name: Prepares storage server
   hosts: storage
-  
+
 - import_playbook: ../generic/update_apt.yml
 - import_playbook: setup_mount.yml
 - import_playbook: setup_samba.yml
