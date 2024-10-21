@@ -7,12 +7,21 @@
     nfs_exports:
       - "/mnt/hdd *(rw,sync,no_subtree_check)"
       - "/mnt/ssd *(rw,sync,no_subtree_check)"
-
   tasks:
     - name: Install nfs
       apt:
         name: nfs-kernel-server
         state: present
+
+    - name: Set ownership of /mnt/hdd and /mnt/ssd to nobody:nogroup
+      file:
+        path: "{{ item }}"
+        owner: nobody
+        group: nogroup
+        state: directory
+      loop:
+        - /mnt/hdd
+        - /mnt/ssd
 
     - name: Configure NFS exports
       lineinfile:
