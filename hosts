@@ -1,0 +1,8 @@
+[ansible]
+localhost
+
+[storage]
+storage
+
+[docker]
+docker
