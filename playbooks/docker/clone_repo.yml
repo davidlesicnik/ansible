@@ -1,6 +1,6 @@
 ---
 - name: Prepare folders and clone git repo with compose files
-  hosts: docker
+  hosts: template
   become: true
   vars:
     docker_dir: "/srv/docker"
