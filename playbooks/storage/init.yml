@@ -1,7 +1,7 @@
 ---
 - import_playbook: ../generic/update_apt.yml
   vars:
-    target_hosts: storage
+    target_hosts: template
 - import_playbook: setup_mount_hdd.yml
 - import_playbook: setup_mount_ssd.yml
 - import_playbook: setup_nfs.yml
