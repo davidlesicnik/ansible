@@ -1,0 +1,12 @@
+---
+- name: Setup initial SSD mount
+  hosts: template
+  become: true
+
+  tasks:
+    - name: Copy netplan config
+      copy:
+        src: ../../files/storage/00-installer-config.yaml
+        dest: /etc/netplan/00-installer-config.yaml
+    - name: Apply new IP - 192.168.10.20
+      command: netplan apply
