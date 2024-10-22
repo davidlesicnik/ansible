@@ -54,8 +54,3 @@
         name: smbd
         state: started
         enabled: yes
-
-    - name: Reboot after updates and setup
-      reboot:
-        msg: "Rebooting after updates and setup"
-        reboot_timeout: 300
