@@ -1,6 +1,8 @@
 [ansible]
 localhost
 
-[homelab]
-storage
-docker
+[storage]
+192.168.10.20
+
+[docker]
+192.168.10.21
