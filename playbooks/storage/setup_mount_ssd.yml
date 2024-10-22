@@ -1,6 +1,6 @@
 ---
 - name: Setup initial SSD mount
-  hosts: template
+  hosts: storage
   become: true
   vars:
     mount_point: "/mnt/ssd"

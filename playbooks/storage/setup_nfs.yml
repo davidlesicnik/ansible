@@ -1,6 +1,6 @@
 ---
 - name: Install and configure NFS server
-  hosts: template
+  hosts: storage
   become: true
 
   vars:

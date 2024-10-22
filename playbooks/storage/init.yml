@@ -1,12 +1,12 @@
 ---
+- import_playbook: setup_network.yml
 - import_playbook: ../generic/update_apt.yml
   vars:
-    target_hosts: template
+    target_hosts: storage
 - import_playbook: setup_mount_hdd.yml
 - import_playbook: setup_mount_ssd.yml
 - import_playbook: setup_nfs.yml
 - import_playbook: setup_samba.yml
 - import_playbook: ../generic/reboot.yml
   vars:
-    target_hosts: template
-- import_playbook: setup_network.yml
+    target_hosts: storage

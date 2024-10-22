@@ -1,6 +1,6 @@
 ---
 - name: Setup Samba
-  hosts: template
+  hosts: storage
   become: true
   vars_files:
   - ../../vault.yml
