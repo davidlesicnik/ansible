@@ -1,0 +1,59 @@
+---
+- name: Install Docker
+  hosts: "{{ target_hosts | default('all') }}"
+  become: true
+  vars_files:
+    - ../../vault.yml
+
+  tasks:
+    - name: Install apt-transport-https
+      ansible.builtin.apt:
+        name:
+          - apt-transport-https
+          - ca-certificates
+          - lsb-release
+          - gnupg
+        state: latest
+        update_cache: true
+
+    - name: Add signing key
+      ansible.builtin.apt_key:
+        url: "https://apt.grafana.com/gpg.key"
+        state: present
+
+    - name: Add repository into sources list
+      ansible.builtin.apt_repository:
+        repo: "deb [signed-by=/etc/apt/keyrings/grafana.gpg] https://apt.grafana.com stable main"
+        state: present
+        filename: grafana
+
+    - name: Install Alloy
+      ansible.builtin.apt:
+        name:
+          - alloy
+        state: latest
+        update_cache: true
+
+    - name: Copy alloy config
+      copy:
+        src: ../../files/generic/config.alloy
+        dest: /etc/alloy/config.alloy
+
+    - name: Replace PLACEHOLDER_USER in alloy.config
+      ansible.builtin.replace:
+        path: /etc/alloy/config.alloy
+        regexp: 'PLACEHOLDER_USER'
+        replace: "{{ alloy_user }}"
+
+    - name: Replace PLACEHOLDER_PW in alloy.config
+      ansible.builtin.replace:
+        path: /etc/alloy/config.alloy
+        regexp: 'PLACEHOLDER_PW'
+        replace: "{{ alloy_pw }}"
+  
+    - name: Restart and enable alloy service
+      ansible.builtin.service:
+        name: alloy
+        state: restarted
+        enabled: yes
+

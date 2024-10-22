@@ -3,3 +3,6 @@
   vars:
     target_hosts: template
 - import_playbook: setup_docker.yml
+- import_playbook: ../generic/setup_alloy.yml
+  vars:
+    target_hosts: docker
