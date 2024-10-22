@@ -3,7 +3,7 @@
   hosts: "{{ target_hosts | default('all') }}"
   become: true
   vars_files:
-    - ../../vault.yml
+    - ../../vault
 
   tasks:
     - name: Install apt-transport-https

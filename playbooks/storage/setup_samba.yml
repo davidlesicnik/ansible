@@ -3,7 +3,7 @@
   hosts: storage
   become: true
   vars_files:
-  - ../../vault.yml
+  - ../../vault
   vars:
     samba_share_name: "share"
     samba_shared_dir: "/mnt/hdd/media"
