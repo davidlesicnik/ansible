@@ -1,0 +1,5 @@
+---
+- import_playbook: ../generic/update_apt.yml
+  vars:
+    target_hosts: docker
+- import_playbook: setup_docker.yml

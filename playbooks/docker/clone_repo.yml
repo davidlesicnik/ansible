@@ -1,0 +1,20 @@
+---
+- name: Prepare folders and clone git repo with compose files
+  hosts: docker
+  become: true
+  vars:
+    docker_dir: "/srv/docker"
+
+
+  tasks:
+      - name: Clone the Git repository
+        git:
+          repo: 'https://github.com/davidlesicnik/docker'
+          dest: /srv/
+
+      - name: Ensure the docker directory has correct permissions
+        file:
+          path: "{{ docker_dir }}"
+          owner: david
+          group: david
+          state: directory
