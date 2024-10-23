@@ -2,7 +2,7 @@ prometheus.exporter.unix "local_system" { }
 
 prometheus.scrape "scrape_metrics" {
   targets         = prometheus.exporter.unix.local_system.targets
-  forward_to      = [prometheus.relabel.filter_metrics.receiver]
+  forward_to = [prometheus.remote_write.metrics_service.receiver]
   scrape_interval = "1m"
 }
 
