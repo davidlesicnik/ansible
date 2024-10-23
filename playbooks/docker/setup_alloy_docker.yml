@@ -1,0 +1,71 @@
+---
+- name: Install Docker
+  hosts: "{{ target_hosts | default('all') }}"
+  become: true
+  vars_files:
+    - ../../vault
+
+  tasks:
+    - name: Install apt-transport-https
+      ansible.builtin.apt:
+        name:
+          - apt-transport-https
+          - ca-certificates
+          - lsb-release
+          - gnupg
+        state: latest
+        update_cache: true
+
+    - name: Add signing key
+      ansible.builtin.apt_key:
+        url: "https://apt.grafana.com/gpg.key"
+        state: present
+
+    - name: Add repository into sources list
+      ansible.builtin.apt_repository:
+        repo: "deb [signed-by=/etc/apt/keyrings/grafana.gpg] https://apt.grafana.com stable main"
+        state: present
+        filename: grafana
+
+    - name: Install Alloy
+      ansible.builtin.apt:
+        name:
+          - alloy
+        state: latest
+        update_cache: true
+
+    - name: Copy alloy config
+      copy:
+        src: ../../files/docker/config.alloy
+        dest: /etc/alloy/config.alloy
+
+    - name: Set prometheus username in alloy.config
+      ansible.builtin.replace:
+        path: /etc/alloy/config.alloy
+        regexp: 'PROM_USER'
+        replace: "{{ prom_user }}"
+
+    - name: Set prometheus password in alloy.config
+      ansible.builtin.replace:
+        path: /etc/alloy/config.alloy
+        regexp: 'PROM_PW'
+        replace: "{{ prom_pw }}"
+
+    - name: Set loki user in alloy.config
+      ansible.builtin.replace:
+        path: /etc/alloy/config.alloy
+        regexp: 'LOKI_USER'
+        replace: "{{ loki_user }}"
+
+    - name: Set loki password in alloy.config
+      ansible.builtin.replace:
+        path: /etc/alloy/config.alloy
+        regexp: 'LOKI_PW'
+        replace: "{{ loki_pw }}"
+
+    - name: Restart and enable alloy service
+      ansible.builtin.service:
+        name: alloy
+        state: restarted
+        enabled: yes
+
