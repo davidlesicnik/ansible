@@ -39,18 +39,30 @@
         src: ../../files/generic/config.alloy
         dest: /etc/alloy/config.alloy
 
-    - name: Replace PLACEHOLDER_USER in alloy.config
+    - name: Set prometheus username in alloy.config
       ansible.builtin.replace:
         path: /etc/alloy/config.alloy
-        regexp: 'PLACEHOLDER_USER'
-        replace: "{{ alloy_user }}"
+        regexp: 'PROM_USER'
+        replace: "{{ prom_user }}"
 
-    - name: Replace PLACEHOLDER_PW in alloy.config
+    - name: Set prometheus password in alloy.config
       ansible.builtin.replace:
         path: /etc/alloy/config.alloy
-        regexp: 'PLACEHOLDER_PW'
-        replace: "{{ alloy_pw }}"
-  
+        regexp: 'PROM_PW'
+        replace: "{{ prom_pw }}"
+
+    - name: Set loki user in alloy.config
+      ansible.builtin.replace:
+        path: /etc/alloy/config.alloy
+        regexp: 'LOKI_USER'
+        replace: "{{ loki_user }}"
+
+    - name: Set loki password in alloy.config
+      ansible.builtin.replace:
+        path: /etc/alloy/config.alloy
+        regexp: 'LOKI_PW'
+        replace: "{{ loki_pw }}"
+
     - name: Restart and enable alloy service
       ansible.builtin.service:
         name: alloy
