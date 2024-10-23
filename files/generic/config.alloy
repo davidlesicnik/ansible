@@ -1,3 +1,32 @@
+local.file_match "local_files" {
+  path_targets = [{"__path__" = "/var/log/syslog"}]
+  sync_period = "1m"
+}
+
+
+prometheus.remote_write "metrics_service" {
+  endpoint {
+    name = "hosted-prometheus"
+    url  = "https://prometheus-us-central1.grafana.net/api/prom/push"
+
+    basic_auth {
+      username = "PROM_USER"
+      password = "PROM_PW"
+    }
+ }
+}
+
+loki.write "grafana_cloud_loki" {
+  endpoint {
+      url = "https://logs-prod-us-central1.grafana.net/loki/api/v1/push"
+      basic_auth {
+          username = "LOKI_USER"
+          password = "LOKI_PW"
+      }
+  }
+}
+
+
 prometheus.exporter.unix "local_system" { }
 
 prometheus.scrape "scrape_metrics" {
@@ -6,14 +35,13 @@ prometheus.scrape "scrape_metrics" {
   scrape_interval = "1m"
 }
 
-prometheus.remote_write "metrics_service" {
-    endpoint {
-      name = "hosted-prometheus"
-      url  = "https://prometheus-us-central1.grafana.net/api/prom/push"
-  
-      basic_auth {
-        username = "PLACEHOLDER_USER"
-        password = "PLACEHOLDER_PW"
-      }
-   }
+local.file_match "local_files" {
+  path_targets = [{"__path__" = "/var/log/syslog"}]
+  sync_period = "1m"
+}
+
+loki.source.file "log_scrape" {
+  targets    = local.file_match.local_files.targets
+  forward_to = [loki.write.grafana_cloud_loki.receiver]
+  tail_from_end = true
 }
