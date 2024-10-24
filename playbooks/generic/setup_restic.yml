@@ -1,0 +1,13 @@
+---
+- name: Install and configure NFS server
+  hosts: "{{ target_hosts | default('all') }}"
+  become: true
+
+  tasks:
+    - name: Install restic
+      apt:
+        name: restic
+        state: present
+
+    - name: Self-update restic to latest version
+      command: restic self-update

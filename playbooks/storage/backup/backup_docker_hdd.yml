@@ -1,0 +1,13 @@
+---
+- name: Backup docker volumes to hdd
+  hosts: storage
+  vars_files:
+  - ../../../vault
+  environment:
+    RESTIC_PASSWORD: "my_value"
+    RESTIC_REPOSITORY: 
+  tasks:
+    - name: Set restic repo password
+      command: echo "Hello, World!"
+      environment:
+        MY_VAR: "my_value"
