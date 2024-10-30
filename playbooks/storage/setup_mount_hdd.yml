@@ -4,7 +4,7 @@
   become: true
   vars:
     mount_point: "/mnt/hdd"
-    device: "/dev/sdb1"
+    device: "/dev/vg_hdd/lv_hdd"
     filesystem_type: "ext4"
     mount_options: "defaults"
     fstab_options: "defaults,nofail 0 2"
