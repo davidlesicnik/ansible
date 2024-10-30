@@ -1,6 +1,7 @@
 ---
 - name: Setup hostname & network
   hosts: template
+  gather_facts: false
   become: true
 
   tasks:

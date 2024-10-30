@@ -1,6 +1,7 @@
 ---
 - name: Setup initial HDD mount
   hosts: storage
+  gather_facts: false
   become: true
   vars:
     mount_point: "/mnt/hdd"
