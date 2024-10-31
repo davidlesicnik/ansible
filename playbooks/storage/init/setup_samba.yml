@@ -30,19 +30,10 @@
       args:
         creates: "/var/lib/samba/private/passdb.tdb"
 
-    - name: Add or update the Samba configuration in smb.conf
-      blockinfile:
-        path: /etc/samba/smb.conf
-        block: |
-          [{{ samba_share_name }}]
-          path = {{ samba_shared_dir }}
-          writable = yes
-          guest ok = no
-          valid users = {{ samba_user }}
-          browseable = yes
-          create mask = 0775
-          directory mask = 0775
-          hosts allow = {{ allowed_hosts }}
+    - name: Copy smb config
+      copy:
+        src: ../../files/storage/smb.conf
+        dest: /etc/samba/smb.conf
 
     - name: Restart Samba services
       systemd:
