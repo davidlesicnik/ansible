@@ -18,18 +18,6 @@
         name: samba
         state: present
 
-    - name: Add Samba user
-      user:
-        name: "{{ samba_user }}"
-        comment: Samba User
-        shell: /usr/sbin/nologin
-        state: present
-
-    - name: Set Samba password for the user
-      command: "echo '{{ samba_password }}' | smbpasswd -s -a {{ samba_user }}"
-      args:
-        creates: "/var/lib/samba/private/passdb.tdb"
-
     - name: Copy smb config
       copy:
         src: ../../files/storage/smb.conf
