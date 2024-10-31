@@ -69,7 +69,6 @@
         regexp: 'LOKI_HOSTNAME'
         replace: "docker"
 
-
     - name: Restart and enable alloy service
       ansible.builtin.service:
         name: alloy

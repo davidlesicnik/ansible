@@ -63,6 +63,12 @@
         regexp: 'LOKI_PW'
         replace: "{{ loki_pw }}"
 
+    - name: Set hostname in alloy.config
+      ansible.builtin.replace:
+        path: /etc/alloy/config.alloy
+        regexp: 'LOKI_HOSTNAME'
+        replace: "{{ ansible_hostname }}"
+
     - name: Restart and enable alloy service
       ansible.builtin.service:
         name: alloy
