@@ -1,6 +1,10 @@
 ---
+- import_playbook: ../generic/setup_network.yml
+  vars:
+    ip: "192.168.10.20"
 - import_playbook: ../generic/update_apt.yml
   vars:
-    target_hosts: template
+    target_hosts: docker
 - import_playbook: setup_docker.yml
 - import_playbook: setup_alloy_docker.yml
+- import_playbook: clone_repo.yml
