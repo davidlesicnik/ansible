@@ -41,7 +41,7 @@ loki.source.file "log_scrape" {
   tail_from_end = true
 }
 
-loki.source.journal "jourland" {
+loki.source.journal "jourland_LOKI_HOSTNAME" {
   forward_to = [loki.write.grafana_cloud_loki.receiver]
   relabel_rules = loki.relabel.journal.rules
   labels        = {

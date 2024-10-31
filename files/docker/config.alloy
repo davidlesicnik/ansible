@@ -47,7 +47,7 @@ discovery.relabel "integrations_cadvisor" {
     }
 }
 
-loki.source.journal "jourland" {
+loki.source.journal "jourland-LOKI_HOSTNAME" {
   forward_to = [loki.write.grafana_cloud_loki.receiver]
   relabel_rules = loki.relabel.journal.rules
   labels        = {
