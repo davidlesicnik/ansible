@@ -44,7 +44,10 @@ loki.source.file "log_scrape" {
 loki.source.journal "jourland" {
   forward_to = [loki.write.grafana_cloud_loki.receiver]
   relabel_rules = loki.relabel.journal.rules
-  labels        = {component = "loki.source.journal"}
+  labels        = {
+    component = "loki.source.journal"
+    host      = "LOKI_HOSTNAME"
+  }
 }
 
 loki.relabel "journal" {
