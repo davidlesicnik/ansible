@@ -20,6 +20,7 @@
       ansible.builtin.apt_key:
         url: "https://apt.grafana.com/gpg.key"
         state: present
+        keyring: "/etc/apt/keyrings/grafana.gpg"
 
     - name: Add repository into sources list
       ansible.builtin.apt_repository:
