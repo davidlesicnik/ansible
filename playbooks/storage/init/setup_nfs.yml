@@ -1,6 +1,7 @@
 ---
 - name: Install and configure NFS server
   hosts: storage
+  gather_facts: false
   become: true
 
   vars:

@@ -1,10 +1,11 @@
 ---
 - name: Setup initial SSD mount
   hosts: storage
+  gather_facts: false
   become: true
   vars:
     mount_point: "/mnt/ssd"
-    device: "/dev/sdc1"
+    device: "/dev/vg_ssd/lv_ssd"
     filesystem_type: "ext4"
     mount_options: "defaults"
     fstab_options: "defaults,nofail 0 2"
