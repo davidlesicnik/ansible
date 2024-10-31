@@ -3,15 +3,7 @@
   hosts: storage
   gather_facts: false
   become: true
-  vars_files:
-  - ../../../vault
-  vars:
-    samba_share_name: "share"
-    samba_shared_dir: "/mnt/hdd/media"
-    samba_user: "david"
-    allowed_hosts: "192.168.10.0/24"
-
-
+  
   tasks:
     - name: Install Samba and related packages
       apt:
