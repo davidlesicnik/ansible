@@ -66,7 +66,7 @@
     - name: Set hostname in alloy.config
       ansible.builtin.replace:
         path: /etc/alloy/config.alloy
-        regexp: 'LOKI_PW'
+        regexp: 'LOKI_HOSTNAME'
         replace: "storage"
 
 
