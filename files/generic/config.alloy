@@ -3,7 +3,6 @@ local.file_match "local_files" {
   sync_period = "1m"
 }
 
-
 prometheus.remote_write "metrics_service" {
   endpoint {
     name = "hosted-prometheus"
@@ -35,13 +34,24 @@ prometheus.scrape "scrape_metrics" {
   scrape_interval = "1m"
 }
 
-local.file_match "local_files" {
-  path_targets = [{"__path__" = "/var/log/syslog"}]
-  sync_period = "1m"
-}
 
 loki.source.file "log_scrape" {
   targets    = local.file_match.local_files.targets
   forward_to = [loki.write.grafana_cloud_loki.receiver]
   tail_from_end = true
+}
+
+loki.source.journal "jourland" {
+  forward_to = [loki.write.grafana_cloud_loki.receiver]
+  relabel_rules = loki.relabel.journal.rules
+  labels        = {component = "loki.source.journal"}
+}
+
+loki.relabel "journal" {
+  forward_to = []
+
+  rule {
+    source_labels = ["__journal__systemd_unit"]
+    target_label  = "unit"
+  }
 }
