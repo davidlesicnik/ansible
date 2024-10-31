@@ -6,8 +6,9 @@
 
   vars:
     nfs_exports:
-      - "/mnt/hdd *(rw,sync,no_subtree_check)"
-      - "/mnt/ssd *(rw,sync,no_subtree_check)"
+      - "/mnt/hdd *(rw,sync,no_subtree_check,anonuid=1000,anongid=1000,insecure)"
+      - "/mnt/ssd *(rw,sync,no_subtree_check,anonuid=1000,anongid=1000,insecure)"
+
   tasks:
     - name: Install nfs
       apt:
