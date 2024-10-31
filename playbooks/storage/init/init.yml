@@ -1,5 +1,7 @@
 ---
-- import_playbook: setup_network.yml
+- import_playbook: ../generic/setup_network.yml
+  vars:
+    ip: "192.168.10.20"
 - import_playbook: ../generic/update_apt.yml
   vars:
     target_hosts: storage
