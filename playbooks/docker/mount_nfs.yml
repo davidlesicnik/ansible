@@ -1,0 +1,33 @@
+---
+- name: Setup nfs mounts
+  hosts: docker
+  become: true
+  tasks:
+    - name: Create hdd mount directory if it does not exist
+      ansible.builtin.file:
+        path: /mnt/hdd
+        state: directory
+        mode: '0755'
+
+    - name: Create ssd mount directory if it does not exist
+      ansible.builtin.file:
+        path: /mnt/ssd
+        state: directory
+        mode: '0755'
+
+
+    - name: Add NFS mount entry to /etc/fstab
+      ansible.builtin.mount:
+        path: /mnt/hdd
+        src: "192.168.10.20:/mnt/hdd"
+        fstype: nfs
+        opts: defaults,nofail
+        state: mounted
+
+    - name: Add NFS mount entry to /etc/fstab
+      ansible.builtin.mount:
+        path: /mnt/ssd
+        src: "192.168.10.20:/mnt/ssd"
+        fstype: nfs
+        opts: defaults,nofail
+        state: mounted

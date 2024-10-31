@@ -5,6 +5,8 @@
 - import_playbook: ../generic/update_apt.yml
   vars:
     target_hosts: docker
+- import_playbook: mount_nfs.yml
 - import_playbook: setup_docker.yml
+- import_playbook: setup_docker_volume_dir.yml
 - import_playbook: setup_alloy_docker.yml
 - import_playbook: clone_repo.yml

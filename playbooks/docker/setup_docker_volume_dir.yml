@@ -1,0 +1,27 @@
+---
+- name: Configure Docker to use new data-root directory
+  hosts: docker
+  become: true
+  tasks:
+    - name: Ensure Docker configuration directory exists
+      ansible.builtin.file:
+        path: /etc/docker
+        state: directory
+        mode: '0755'
+
+    - name: Configure Docker data-root path in daemon.json
+      ansible.builtin.blockinfile:
+        path: /etc/docker/daemon.json
+        create: yes
+        block: |
+          {
+            "data-root": "/mnt/ssd/volumes"
+          }
+        marker: ""
+      vars:
+        daemon_config_path: /etc/docker/daemon.json
+
+    - name: Restart Docker to apply changes
+      ansible.builtin.service:
+        name: docker
+        state: restarted
