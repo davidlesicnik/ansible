@@ -2,7 +2,7 @@ Just a little private ansible repo for my home server.
 
 # Deployments
 ## Storage server
-    ansible-playbook playbooks/storage/init.yml --ask-vault-pass
+    ansible-playbook playbooks/storage/init/init.yml --ask-vault-pass
 
 1. Sets up network and hostname
 2. Updates server
