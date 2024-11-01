@@ -9,10 +9,10 @@
       hostname:
         name: "{{ new_hostname }}"
         
-    - name: Configure alloy with templated config file
+    - name: Configure network with templated config file
       ansible.builtin.template:
-        src: ../../templates/config.alloy.j2
-        dest: /etc/alloy/config.alloy
+        src: ../../templates/00-installer-config.yaml.j2
+        dest: /etc/netplan/00-installer-config.yaml
         mode: '0644'
         force: no 
 
