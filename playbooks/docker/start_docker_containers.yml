@@ -1,0 +1,19 @@
+---
+- name: Start all Docker services in /srv/docker/
+  hosts: docker
+  gather_facts: false
+  become: true
+
+  tasks:
+    - name: Find all service directories with docker-compose files
+      ansible.builtin.find:
+        paths: /srv/docker/
+        patterns: docker-compose.yml
+        recurse: yes
+      register: compose_files
+
+    - name: Start each docker-compose service
+      ansible.builtin.command:
+        cmd: docker-compose up -d
+        chdir: "{{ item.path | dirname }}"
+      loop: "{{ compose_files.files }}"
