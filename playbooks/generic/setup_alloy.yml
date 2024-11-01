@@ -16,13 +16,13 @@
         state: latest
         update_cache: true
 
-    - name: Download Grafana GPG key using curl
+    - name: Add Grafana GPG key using apt-key
       ansible.builtin.command:
-        cmd: "curl -fsSL https://apt.grafana.com/gpg.key -o /etc/apt/keyrings/grafana.gpg"
+        cmd: "apt-key add /etc/apt/keyrings/grafana.gpg"
 
-    - name: Add repository into sources list
+    - name: Add Grafana repository 
       ansible.builtin.apt_repository:
-        repo: "deb [signed-by=/etc/apt/keyrings/grafana.gpg] https://apt.grafana.com stable main"
+        repo: "deb https://apt.grafana.com stable main"
         state: present
         filename: grafana
 
