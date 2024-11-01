@@ -21,3 +21,7 @@
         cmd: "netplan apply"
       async: 1
       poll: 0
+      
+    - name: Wait for 5 seconds after applying Netplan
+      pause:
+        seconds: 5
