@@ -23,5 +23,5 @@
         regexp: 'PLACEHOLDER_IP'
         replace: "{{ ip }}"
 
-    - name: Apply new IP - 192.168.10.20
+    - name: Apply new IP
       command: netplan apply
