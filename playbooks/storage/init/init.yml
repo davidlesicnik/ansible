@@ -2,7 +2,7 @@
 - import_playbook: ../generic/setup_network.yml
   vars:
     new_hostname: "storage"
-    ip: "192.168.10.20"
+    new_ip: "192.168.10.20"
 - import_playbook: ../generic/update_apt.yml
   vars:
     target_hosts: storage
