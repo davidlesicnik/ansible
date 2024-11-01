@@ -13,7 +13,7 @@
       ansible.builtin.template:
         src: ../../templates/00-installer-config.yaml.j2
         dest: /etc/netplan/00-installer-config.yaml
-        mode: '0400'
+        mode: '0700'
         force: yes 
 
     - name: Apply Netplan changes
@@ -21,15 +21,3 @@
         cmd: "netplan apply"
       async: 1
       poll: 0
-
-    # - name: Wait for host to come back online
-    #   ansible.builtin.wait_for:
-    #     host: "{{ new_ip | regex_replace('/\\d+$', '') }}"  # Extract the IP without the subnet mask
-    #     port: 22
-    #     delay: 5    
-    #     timeout: 120
-    #     state: started
-
-    - name: Refresh Ansible Connection
-      meta: reset_connection
-      delegate_to: localhost
