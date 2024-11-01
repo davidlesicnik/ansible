@@ -7,7 +7,7 @@
   tasks:
     - name: Set hostname
       hostname:
-        name: {{ new_hostname }}
+        name: "{{ new_hostname }}"
         
     - name: Configure alloy with templated config file
       ansible.builtin.template:
