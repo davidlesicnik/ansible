@@ -40,10 +40,12 @@
         src: ../../templates/config.alloy.j2
         dest: /etc/alloy/config.alloy
         mode: '0644'
+        force: no 
 
     - name: Restart and enable alloy service
       ansible.builtin.service:
         name: alloy
         state: restarted
         enabled: yes
+      when: ansible.builtin.template.changed
 
