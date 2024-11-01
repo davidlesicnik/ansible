@@ -35,40 +35,11 @@
         state: latest
         update_cache: true
 
-    - name: Copy alloy config
-      copy:
-        src: ../../files/docker/config.alloy
+    - name: Configure alloy with templated config file
+      ansible.builtin.template:
+        src: ../../templates/config.alloy.j2
         dest: /etc/alloy/config.alloy
-
-    - name: Set prometheus username in alloy.config
-      ansible.builtin.replace:
-        path: /etc/alloy/config.alloy
-        regexp: 'PROM_USER'
-        replace: "{{ prom_user }}"
-
-    - name: Set prometheus password in alloy.config
-      ansible.builtin.replace:
-        path: /etc/alloy/config.alloy
-        regexp: 'PROM_PW'
-        replace: "{{ prom_pw }}"
-
-    - name: Set loki user in alloy.config
-      ansible.builtin.replace:
-        path: /etc/alloy/config.alloy
-        regexp: 'LOKI_USER'
-        replace: "{{ loki_user }}"
-
-    - name: Set loki password in alloy.config
-      ansible.builtin.replace:
-        path: /etc/alloy/config.alloy
-        regexp: 'LOKI_PW'
-        replace: "{{ loki_pw }}"
-
-    - name: Set hostname in alloy.config
-      ansible.builtin.replace:
-        path: /etc/alloy/config.alloy
-        regexp: 'LOKI_HOSTNAME'
-        replace: "docker"
+        mode: '0644'
 
     - name: Restart and enable alloy service
       ansible.builtin.service:
