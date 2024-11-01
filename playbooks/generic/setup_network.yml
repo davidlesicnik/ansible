@@ -7,21 +7,25 @@
   tasks:
     - name: Set hostname
       hostname:
-        name: storage
+        name: {{ new_hostname }}
         
-    - name: Copy netplan config
-      copy:
-        src: ../../files/generic/00-installer-config.yaml
-        dest: /etc/netplan/00-installer-config.yaml
-        owner: root
-        group: root
-        mode: '700'
+    - name: Configure alloy with templated config file
+      ansible.builtin.template:
+        src: ../../templates/config.alloy.j2
+        dest: /etc/alloy/config.alloy
+        mode: '0644'
+        force: no 
 
-    - name: Set IP address
-      ansible.builtin.replace:
-        path: /etc/netplan/00-installer-config.yaml
-        regexp: 'PLACEHOLDER_IP'
-        replace: "{{ ip }}"
+    - name: Apply Netplan changes
+      ansible.builtin.command:
+        cmd: "netplan apply"
+      async: 1
+      poll: 0
 
-    - name: Apply new IP
-      command: netplan apply
+    - name: Wait for host to come back online
+      ansible.builtin.wait_for:
+        host: "{{ new_ip | regex_replace('/\\d+$', '') }}"  # Extract the IP without the subnet mask
+        port: 22
+        delay: 5    
+        timeout: 120
+        state: started
