@@ -2,12 +2,9 @@
 - name: Run full upgrade via apt
   hosts: "{{ target_hosts | default('all') }}"
   become: true
-  become_user: root
+  
   tasks:
-    - name: Run apt update
-      ansible.builtin.apt:
-        update_cache: yes
-
     - name: Upgrade the OS (apt dist-upgrade)
       ansible.builtin.apt:
+        update_cache: yes
         upgrade: dist
