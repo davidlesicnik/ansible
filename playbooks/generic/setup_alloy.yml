@@ -24,7 +24,7 @@
     - name: Add Grafana GPG key using apt-key
       ansible.builtin.command:
         cmd: "apt-key add /etc/apt/keyrings/grafana.gpg"
-        
+
     - name: Add Grafana repository 
       ansible.builtin.apt_repository:
         repo: "deb https://apt.grafana.com stable main"
@@ -43,7 +43,7 @@
         src: ../../templates/config.alloy.j2
         dest: /etc/alloy/config.alloy
         mode: '0644'
-        force: no 
+        force: yes 
       register: alloy_config
 
     - name: Restart and enable alloy service
