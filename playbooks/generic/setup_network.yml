@@ -29,3 +29,7 @@
         delay: 5    
         timeout: 120
         state: started
+        
+    - name: Refresh Ansible Connection
+      meta: reset_connection
+      delegate_to: localhost
