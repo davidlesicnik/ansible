@@ -1,0 +1,14 @@
+---
+- import_playbook: ../generic/setup_network.yml
+  vars:
+    ip: "192.168.10.22"
+- import_playbook: ../generic/update_apt.yml
+  vars:
+    target_hosts: ansible
+- import_playbook: ../generic/setup_alloy.yml
+  vars:
+    target_hosts: ansible
+- import_playbook: setup_ansible.yml
+- import_playbook: ../generic/reboot.yml
+  vars:
+    target_hosts: ansible
