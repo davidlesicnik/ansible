@@ -1,5 +1,5 @@
 ---
-- name: Run full upgrade via apt
+- name: Reboot server
   hosts: "{{ target_hosts | default('all') }}"
   become: true
   become_user: root
