@@ -16,12 +16,11 @@
         state: latest
         update_cache: true
 
-    - name: Add signing key
-      ansible.builtin.apt_key:
+    - name: Download Grafana GPG key
+      ansible.builtin.get_url:
         url: "https://apt.grafana.com/gpg.key"
-        state: present
-        keyring: "/etc/apt/keyrings/grafana.gpg"
-
+        dest: "/etc/apt/keyrings/grafana.gpg"
+        mode: '0644'
 
     - name: Add repository into sources list
       ansible.builtin.apt_repository:
