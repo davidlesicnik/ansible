@@ -1,5 +1,5 @@
 ---
-- name: Install and configure NFS server
+- name: Install and configure NFS
   hosts: "{{ target_hosts | default('all') }}"
   become: true
 
