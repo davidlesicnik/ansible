@@ -1,6 +1,6 @@
 ---
 - name: Install Docker
-  hosts: template
+  hosts: docker
   gather_facts: false
   become: true
   tasks:
