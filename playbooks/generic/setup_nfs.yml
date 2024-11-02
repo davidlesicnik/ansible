@@ -1,0 +1,10 @@
+---
+- name: Install and configure NFS server
+  hosts: "{{ target_hosts | default('all') }}"
+  become: true
+
+  tasks:
+    - name: Install restic
+      apt:
+        name: nfs-common
+        state: present
