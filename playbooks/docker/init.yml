@@ -10,10 +10,10 @@
   vars:
     target_hosts: docker
 - import_playbook: mount_nfs.yml
-- import_playbook: setup_docker.yml
-- import_playbook: setup_docker_volume_dir.yml
 - import_playbook: ../generic/setup_alloy.yml
   vars:
     target_hosts: docker
+- import_playbook: setup_docker.yml
+- import_playbook: setup_docker_volume_dir.yml
 - import_playbook: clone_repo.yml
 #- import_playbook: start_docker_containers.yml
