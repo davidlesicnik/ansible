@@ -2,34 +2,41 @@
 - name: Set up Ansible environment
   hosts: ansible
   become: true
+  vars_files:
+  - ../../../vaults/int_vault
 
   tasks:
-    - name: Install Ansible
-      ansible.builtin.apt:
-        name: ansible
-        state: latest
-        update_cache: true
+  - name: Install Ansible
+    ansible.builtin.apt:
+      name: ansible
+      state: latest
+      update_cache: true
 
-    - name: Ensure /srv/ansible directory exists
-      ansible.builtin.file:
-        path: /srv/ansible
-        state: directory
-        mode: '0755'
+  - name: Ensure /srv/ansible directory exists
+    ansible.builtin.file:
+      path: /srv/ansible
+      state: directory
+      mode: '0755'
 
-    - name: Clone ansible repository
-      ansible.builtin.git:
-        repo: https://github.com/davidlesicnik/ansible
-        dest: /srv/ansible
-        update: yes
+  - name: Clone ansible repository
+    ansible.builtin.git:
+      repo: https://github.com/davidlesicnik/ansible
+      dest: /srv/ansible
+      update: yes
 
-    - name: Create /srv/ansible/keys directory if it doesn't exist
-      ansible.builtin.file:
-        path: /srv/ansible/keys
-        state: directory
-        mode: '0755'
+  - name: Create /srv/ansible/keys directory if it doesn't exist
+    ansible.builtin.file:
+      path: /srv/ansible/keys
+      state: directory
+      mode: '0755'
 
-    - name: Copy ansible key file
-      ansible.builtin.copy:
-        src: ../../../keys/ansible
-        dest: /srv/ansible/keys/ansible
-        mode: '0400'
+  - name: Copy ansible key file
+    ansible.builtin.copy:
+      src: ../../../keys/ansible
+      dest: /srv/ansible/keys/ansible
+      mode: '0400'
+
+  - name: Setup auto vault pw
+    ansible.builtin.copy:
+      dest: /srv/ansible/keys/auto_vault_pw
+      content: " {{ auto_vault_pw }}"
