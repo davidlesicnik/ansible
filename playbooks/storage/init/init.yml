@@ -13,6 +13,7 @@
     target_hosts: storage
 - import_playbook: setup_mount_hdd.yml
 - import_playbook: setup_mount_ssd.yml
+- import_playbook: setup_mount_external.yml
 - import_playbook: setup_nfs.yml
 - import_playbook: setup_samba.yml
 - import_playbook: ../../generic/setup_alloy.yml
