@@ -1,5 +1,5 @@
 ---
-- name: Configure Docker to use new data-root directory
+- name: Configure different docker volume directory
   hosts: docker
   become: true
   tasks:
