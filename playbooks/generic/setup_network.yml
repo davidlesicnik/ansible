@@ -21,6 +21,6 @@
       async: 1
       poll: 0
 
-    - name: Wait for 15 seconds after a reboot
+    - name: Wait for 30 seconds after a reboot
       pause:
         seconds: 30
