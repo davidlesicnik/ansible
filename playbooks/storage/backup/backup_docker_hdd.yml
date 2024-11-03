@@ -14,5 +14,5 @@
       --keep-monthly 3 --prune >>
       /var/log/ansible/restic-docker-externalhdd-prune.log
   - name: Backup docker volumes
-    command: restic backup /var/lib/docker/volumes/ >>
+    command: restic backup /mnt/ssd/volumes/ >>
       /var/log/ansible/restic-docker-externalhdd-backup.log
