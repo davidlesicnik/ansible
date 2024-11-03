@@ -1,13 +1,18 @@
 ---
 - name: Backup docker volumes to hdd
   hosts: storage
+  become: yes
   vars_files:
   - ../../../vaults/auto_vault
   environment:
-    RESTIC_PASSWORD: "my_value"
-    RESTIC_REPOSITORY: 
+    RESTIC_PASSWORD: "{{ restic_hdd_pw }}"
+    RESTIC_REPOSITORY: "/mnt/external/backup/docker/"
+
   tasks:
-    - name: Set restic repo password
-      command: echo "Hello, World!"
-      environment:
-        MY_VAR: "my_value"
+  - name: Prune the repo
+    command: restic forget --keep-last 5 --keep-daily 5 --keep-weekly 3
+      --keep-monthly 3 --prune >>
+      /var/log/ansible/restic-docker-externalhdd-prune.log
+  - name: Backup docker volumes
+    command: restic backup /var/lib/docker/volumes/ >>
+      /var/log/ansible/restic-docker-externalhdd-backup.log
