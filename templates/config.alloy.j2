@@ -66,7 +66,7 @@ local.file_match "local_files" {
   }
   
   prometheus.scrape "docker" {
-      targets    = prometheus.exporter.cadvisor.docker.tagets
+      targets    = prometheus.exporter.cadvisor.docker.targets
       forward_to = [prometheus.remote_write.metrics_service.receiver]
   }
   
@@ -99,7 +99,7 @@ local.file_match "local_files" {
           target_label  = "stream"
       }
   }
-  
+
   loki.source.docker "logs_integrations_docker" {
       host             = "unix:///var/run/docker.sock"
       targets          = discovery.docker.logs_integrations_docker.targets
