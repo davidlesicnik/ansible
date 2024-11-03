@@ -17,10 +17,10 @@
         force: yes 
 
     - name: Apply Netplan changes & Reboot
-      shell: "netplan apply && reboot"
+      shell: "netplan apply && sleep 5 && reboot"
       async: 1
       poll: 0
 
     - name: Wait for 15 seconds after a reboot
       pause:
-        seconds: 15
+        seconds: 30
