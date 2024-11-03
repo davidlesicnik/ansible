@@ -16,7 +16,7 @@
         mode: '0700'
         force: yes 
 
-    - name: Apply Netplan changes
+    - name: Apply Netplan changes & Reboot
       shell: "netplan apply && reboot"
       async: 1
       poll: 0
