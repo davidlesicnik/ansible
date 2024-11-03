@@ -22,9 +22,10 @@
       async: 1
       poll: 0
 
-    - name: Reboot
-      ansible.builtin.command:
-        cmd: "sleep 10 && reboot"
+    - name: Delayed reboot
+      shell: sleep 10 && reboot
+      args:
+        executable: /bin/bash
 
     - name: Wait for 15 seconds after a reboot
       pause:
