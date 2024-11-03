@@ -30,6 +30,6 @@
 
     - name: Copy ansible key file
       ansible.builtin.copy:
-        src: ../../keys/ansible
+        src: ../../../keys/ansible
         dest: /srv/ansible/keys/ansible
         mode: '0400'
