@@ -2,7 +2,7 @@
 - name: Backup docker volumes to hdd
   hosts: storage
   vars_files:
-  - ../../../vault
+  - ../../../vaults/vault
   environment:
     RESTIC_PASSWORD: "my_value"
     RESTIC_REPOSITORY: 
