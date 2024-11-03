@@ -5,7 +5,7 @@
   vars_files:
   - ../../../vaults/auto_vault
   environment:
-    RESTIC_PASSWORD: "{{ restic_hdd_pw }}"
+    RESTIC_PASSWORD: "{{ restic_docker_hdd_pw }}"
     RESTIC_REPOSITORY: "/mnt/external/backup/docker/"
 
   tasks:
