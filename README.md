@@ -13,7 +13,7 @@ Just a little private ansible repo for my home server.
 6. Reboots server
 
 ## Docker server TODO
-    ansible-playbook playbooks/docker/init.yml --ask-vault-pass
+    ansible-playbook playbooks/docker/init.yml --ask-vault-pass -e "plex=PLEX_CODE"
 
 1. Sets up network and hostname
 2. Updates server
@@ -24,3 +24,5 @@ Just a little private ansible repo for my home server.
 6. Reboots server
 7. Clones docker git repo
 8. Starts all docker containers
+
+Get the plex code from plex.tv/claim and send it in as an extra variable 

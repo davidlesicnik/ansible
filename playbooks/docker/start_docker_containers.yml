@@ -5,6 +5,18 @@
   become: true
 
   tasks:
+    - name: Copy plex env example 
+      ansible.builtin.copy:
+        src: /srv/docker/plex/.env.example
+        dest: /srv/docker/plex/.env
+        remote_src: yes
+
+    - name: Replace "EXAMPLE" with the value provided
+      ansible.builtin.replace:
+        path: /srv/docker/plex/.env
+        regexp: 'EXAMPLE'
+        replace: "{{ plex }}"
+
     - name: Find all service directories with docker-compose files
       ansible.builtin.find:
         paths: /srv/docker/
