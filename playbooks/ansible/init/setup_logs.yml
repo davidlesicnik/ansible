@@ -1,0 +1,14 @@
+---
+- name: Set up Ansible environment
+  hosts: ansible
+  become: true
+  
+  tasks:
+  - name: Ensure /var/log/ansible directory exists and is owned by ansible
+    ansible.builtin.file:
+      path: /var/log/ansible
+      state: directory
+      mode: '0755'
+      owner: ansible
+      group: ansible
+
