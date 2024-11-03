@@ -5,14 +5,14 @@
   vars_files:
   - ../../../vaults/auto_vault
   environment:
-    RESTIC_PASSWORD: "{{ restic_docker_hdd_pw }}"
+    RESTIC_PASSWORD: "{{ restic_docker_external_pw }}"
     RESTIC_REPOSITORY: "/mnt/external/backup/volumes/"
 
   tasks:
   - name: Prune the repo
     command: restic forget --keep-last 5 --keep-daily 5 --keep-weekly 3
       --keep-monthly 3 --prune >>
-      /var/log/ansible/restic-docker-externalhdd-prune.log
+      /var/log/ansible/restic-docker-backblaze-prune.log
   - name: Backup docker volumes
     command: restic backup /mnt/ssd/volumes/ >>
-      /var/log/ansible/restic-docker-externalhdd-backup.log
+      /var/log/ansible/restic-docker-backblaze-backup.log

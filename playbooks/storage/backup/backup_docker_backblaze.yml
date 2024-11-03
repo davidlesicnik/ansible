@@ -1,0 +1,21 @@
+---
+- name: Backup docker volumes to backblaze
+  hosts: storage
+  become: yes
+  vars_files:
+  - ../../../vaults/auto_vault
+  environment:
+    B2_ACCOUNT_ID: "{{ restic_backblaze_id }}"
+    B2_ACCOUNT_KEY: "{{ restic_backblaze_key }}"
+    RESTIC_PASSWORD: "{{ restic_docker_backblaze_pw }}"
+    RESTIC_REPOSITORY: "b2:lesicnik-server:/docker"
+    RESTIC_EXCLUDE_PATTERN: "/mnt/ssd/volumes/plex_data/_data/Library/Application Support/Plex Media Server/Cache/PhotoTranscoder"
+
+  tasks:
+  - name: Prune the repo
+    command: restic forget --keep-daily 3 --keep-weekly 1
+      --keep-monthly 1 --prune >>
+      /var/log/ansible/restic-docker-backblaze-prune.log
+  - name: Backup docker volumes
+    command: restic backup /mnt/ssd/volumes/ >>
+      /var/log/ansible/restic-docker-backblaze-backup.log
