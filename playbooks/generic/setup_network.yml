@@ -17,15 +17,9 @@
         force: yes 
 
     - name: Apply Netplan changes
-      ansible.builtin.command:
-        cmd: "netplan apply"
+      shell: "netplan apply && reboot"
       async: 1
       poll: 0
-
-    - name: Delayed reboot
-      shell: sleep 10 && reboot
-      args:
-        executable: /bin/bash
 
     - name: Wait for 15 seconds after a reboot
       pause:
