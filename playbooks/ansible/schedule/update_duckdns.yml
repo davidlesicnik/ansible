@@ -1,6 +1,7 @@
 ---
 - name: Update duckdns domain
   hosts: ansible
+  gather_facts: false
   vars_files:
   - ../../../auto_vault
   vars:
