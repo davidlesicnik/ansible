@@ -6,7 +6,7 @@
   vars:
     mount_point: "/mnt/external"
     uuid: "3359fada-4793-453a-9801-6136ca3a3d48"
-    filesystem_type: "xfs"
+    filesystem_type: "ext4"
     mount_options: "defaults"
     fstab_options: "defaults,nofail 0 2"
 
