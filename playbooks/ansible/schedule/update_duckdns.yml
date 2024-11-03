@@ -1,0 +1,11 @@
+---
+- name: Update duckdns domain
+  hosts: storage
+  vars_files:
+  - ../../../auto_vault
+  vars:
+    url: "https://www.duckdns.org/update?domains=lesicnik&token={{ duckdns_token }}&ip="
+
+  tasks:
+    - name: Update duckdns
+      command: curl -k $url
