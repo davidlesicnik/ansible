@@ -1,0 +1,41 @@
+---
+- name: Copy crontab
+  hosts: ansible
+  become: true
+
+  tasks:
+  - name: Sets SHELL path
+    ansible.builtin.cron:
+      name: SHELL
+      env: yes
+      job: /bin/sh
+
+  - name: Sets PATH path
+    ansible.builtin.cron:
+      name: PATH
+      env: yes
+      job: /srv/ansible
+      insertafter: SHELL
+
+  - name: Runs duckdns script
+    cron:
+      name: "duckdns"
+      minute: "*/5"
+      user: "root"
+      job: "ansible-playbook playbooks/ansible/schedule/update_duckdns.yml --vault-pass-file keys/auto_vault_pw"
+
+
+  - name: Runs docker -> external backup job
+    cron:
+      name: "docker_external_backup"
+      minute: "0"
+      user: "root"
+      job: "ansible-playbook playbooks/storage/backup/backup_docker_external.yml --vault-pass-file keys/auto_vault_pw"
+
+  - name: Runs docker -> backblaze backup job
+    cron:
+      name: "docker_backblaze_backup"
+      minute: "30"
+      hour: "22"
+      user: "root"
+      job: "ansible-playbook playbooks/storage/backup/backup_docker_backblaze.yml --vault-pass-file keys/auto_vault_pw"

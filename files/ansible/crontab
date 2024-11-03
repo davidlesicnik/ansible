@@ -1,5 +1,5 @@
 SHELL=/bin/sh
-HOME=/srv/ansible
+PATH=/srv/ansible
 
 */5 * * * * ansible ansible-playbook playbooks/ansible/schedule/update_duckdns.yml --vault-pass-file keys/auto_vault_pw
 

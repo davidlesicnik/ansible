@@ -1,0 +1,16 @@
+---
+- name: Backup docker volumes to hdd
+  hosts: storage
+  become: yes
+  vars_files:
+  - ../../../vaults/int_vault
+  environment:
+    RESTIC_PASSWORD: "{{ restic_docker_external_pw }}"
+    RESTIC_REPOSITORY: "/mnt/external/backup/volumes/"
+
+  tasks:
+  - name: List restic snapshots
+    command: restic snapshots
+    register: snapshots
+
+  - debug: msg="{{ snapshots.stdout }}"
