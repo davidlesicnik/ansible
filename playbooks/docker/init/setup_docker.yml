@@ -38,9 +38,3 @@
           - docker-compose-plugin
         state: latest
         update_cache: true
-  
-    - name: Add alloy user to docker group
-      ansible.builtin.user:
-        name: alloy
-        groups: docker
-        append: yes
