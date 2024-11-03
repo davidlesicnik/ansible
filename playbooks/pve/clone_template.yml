@@ -5,7 +5,11 @@
 
   tasks:
     - name: Clone VM
-      command: qm clone 900 {{ vmid }} --full --name {{ name }}
+      command: qm clone 900 {{ vmid }} --full --name {{ vm_name }}
 
-    - name: Clone VM
+    - name: Start VM
       command: qm start {{ vmid }}
+  
+    - name: Wait for 15 seconds after a boot
+      pause:
+        seconds: 15

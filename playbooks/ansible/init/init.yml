@@ -2,7 +2,7 @@
 - import_playbook: ../../pve/clone_template.yml
   vars:
     vmid: "102"
-    name: "ansible"
+    vm_name: "ansible"
 
 - import_playbook: ../../generic/setup_network.yml
   vars:
