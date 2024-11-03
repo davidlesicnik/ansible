@@ -1,4 +1,9 @@
 ---
+- import_playbook: ../../pve/clone_template.yml
+  vars:
+    vmid: "101"
+    vm_name: "docker"
+
 - import_playbook: ../../generic/setup_network.yml
   vars:
     new_hostname: "docker"
