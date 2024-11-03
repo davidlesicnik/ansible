@@ -15,6 +15,7 @@
   vars:
     target_hosts: ansible
 - import_playbook: setup_ansible.yml
+- import_playbook: ../copy_crontab.yml
 - import_playbook: ../../generic/reboot.yml
   vars:
     target_hosts: ansible

@@ -1,0 +1,3 @@
+SHELL=/bin/sh
+
+*/5 * * * * ansible ansible-playbook /srv/ansible/playbooks/ansible/schedule/update_duckdns.yml --vault-pass-file keys/auto_vault_pw

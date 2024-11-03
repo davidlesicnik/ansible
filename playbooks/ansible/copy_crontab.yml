@@ -1,0 +1,10 @@
+---
+- name: Copy crontab
+  hosts: ansible
+  become: true
+  
+  tasks:
+    - name: Copy crontab
+      copy:
+        src: ../../files/ansible/crontab
+        dest: /etc/crontab
