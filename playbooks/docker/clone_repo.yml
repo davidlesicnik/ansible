@@ -1,6 +1,6 @@
 ---
 - name: Prepare folders and clone git repo with compose files
-  hosts: template
+  hosts: docker
   become: true
   vars:
     docker_dir: "/srv/docker"
@@ -10,7 +10,7 @@
       - name: Clone the Git repository
         git:
           repo: 'https://github.com/davidlesicnik/docker'
-          dest: /srv/docker
+          dest: "{{ docker_dir }}"
 
       - name: Ensure the docker directory has correct permissions
         file:
