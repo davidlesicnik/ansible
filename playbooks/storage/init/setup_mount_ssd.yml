@@ -1,32 +1,32 @@
 ---
-- name: Setup initial SSD mount
+- name: Setup initial HDD mount
   hosts: storage
   gather_facts: false
   become: true
   vars:
     mount_point: "/mnt/ssd"
-    device: "/dev/vg_ssd/lv_ssd"
+    uuid: "c3032d27-e9ec-4a50-a996-144627f4a18e"
     filesystem_type: "ext4"
     mount_options: "defaults"
     fstab_options: "defaults,nofail 0 2"
 
   tasks:
-      - name: Ensure the mount point directory exists
-        file:
-          path: "{{ mount_point }}"
-          state: directory
+  - name: Ensure the mount point directory exists
+    file:
+      path: "{{ mount_point }}"
+      state: directory
 
-      - name: Mount the filesystem
-        mount:
-          path: "{{ mount_point }}"
-          src: "{{ device }}"
-          fstype: "{{ filesystem_type }}"
-          opts: "{{ mount_options }}"
-          state: mounted
-          
-      - name: Ensure the device is in fstab with nofail option
-        lineinfile:
-          path: /etc/fstab
-          state: present
-          regexp: "^{{ device }}"
-          line: "{{ device }} {{ mount_point }} {{ filesystem_type }} {{ fstab_options }}"
+  - name: Mount the filesystem
+    mount:
+      path: "{{ mount_point }}"
+      src: "UUID={{ uuid }}"
+      fstype: "{{ filesystem_type }}"
+      opts: "{{ mount_options }}"
+      state: mounted
+
+  - name: Ensure the device is in fstab with nofail option
+    lineinfile:
+      path: /etc/fstab
+      state: present
+      regexp: "^UUID={{ uuid }}"
+      line: "UUID={{ uuid }} {{ mount_point }} {{ filesystem_type }} {{ fstab_options }}"

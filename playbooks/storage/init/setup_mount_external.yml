@@ -19,7 +19,7 @@
   - name: Mount the filesystem
     mount:
       path: "{{ mount_point }}"
-      src: "UUID={{ device }}"
+      src: "UUID={{ uuid }}"
       fstype: "{{ filesystem_type }}"
       opts: "{{ mount_options }}"
       state: mounted
@@ -28,5 +28,5 @@
     lineinfile:
       path: /etc/fstab
       state: present
-      regexp: "^{{ device }}"
-      line: "{{ device }} {{ mount_point }} {{ filesystem_type }} {{ fstab_options }}"
+      regexp: "^UUID={{ uuid }}"
+      line: "UUID={{ uuid }} {{ mount_point }} {{ filesystem_type }} {{ fstab_options }}"
