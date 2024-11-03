@@ -6,7 +6,7 @@
   - ../../../vaults/auto_vault
   environment:
     RESTIC_PASSWORD: "{{ restic_docker_hdd_pw }}"
-    RESTIC_REPOSITORY: "/mnt/external/backup/docker/"
+    RESTIC_REPOSITORY: "/mnt/external/backup/volimes/"
 
   tasks:
   - name: Prune the repo
