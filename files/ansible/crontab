@@ -1,3 +1,7 @@
 SHELL=/bin/sh
 HOME=/srv/ansible
+
 */5 * * * * ansible ansible-playbook playbooks/ansible/schedule/update_duckdns.yml --vault-pass-file keys/auto_vault_pw >> /var/log/ansible/duckdns.log
+
+0 * * * * ansible ansible-playbook playbooks/storage/backup/backup_docker_external.yml --vault-pass-file keys/auto_vault_pw
+0 22 * * *  ansible ansible-playbook playbooks/storage/backup/backup_docker_backblaze.yml --vault-pass-file keys/auto_vault_pw
