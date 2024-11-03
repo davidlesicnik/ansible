@@ -58,6 +58,7 @@ local.file_match "local_files" {
   }
   
   {% if ansible_hostname == "docker" %}
+  
   prometheus.relabel "integrations_cadvisor" {
       forward_to = [prometheus.remote_write.metrics_service.receiver]
   
