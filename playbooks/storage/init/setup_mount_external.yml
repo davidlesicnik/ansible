@@ -5,7 +5,7 @@
   become: true
   vars:
     mount_point: "/mnt/external"
-    uuid: "3359fada-4793-453a-9801-6136ca3a3d48"
+    uuid: "c36d7342-8347-4ce5-9b51-65e79f1e5046"
     filesystem_type: "ext4"
     mount_options: "defaults"
     fstab_options: "defaults,nofail 0 2"
