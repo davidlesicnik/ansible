@@ -11,10 +11,3 @@
         git:
           repo: 'https://github.com/davidlesicnik/docker'
           dest: "{{ docker_dir }}"
-
-      - name: Ensure the docker directory has correct permissions
-        file:
-          path: "{{ docker_dir }}"
-          owner: david
-          group: david
-          state: directory

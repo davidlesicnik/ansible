@@ -29,3 +29,5 @@
         cmd: docker compose up -d
         chdir: "{{ item.path | dirname }}"
       loop: "{{ compose_files.files }}"
+      loop_control:
+        loop_var: item
