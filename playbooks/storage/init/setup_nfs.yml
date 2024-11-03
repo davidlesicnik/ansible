@@ -6,8 +6,8 @@
 
   vars:
     nfs_exports:
-      - "/mnt/hdd *(rw,sync,no_subtree_check,anonuid=1000,anongid=1000,insecure)"
-      - "/mnt/ssd *(rw,sync,no_subtree_check,anonuid=1000,anongid=1000,insecure)"
+      - "/mnt/hdd *(rw,sync,no_subtree_check,anonuid=1000,anongid=1000,insecure,no_root_squash)"
+      - "/mnt/ssd *(rw,sync,no_subtree_check,anonuid=1000,anongid=1000,insecure,no_root_squash)"
 
   tasks:
     - name: Install nfs
@@ -18,8 +18,8 @@
     - name: Set ownership of /mnt/hdd and /mnt/ssd to nobody:nogroup
       file:
         path: "{{ item }}"
-        owner: nobody
-        group: nogroup
+        owner: david
+        group: david
         state: directory
       loop:
         - /mnt/hdd
