@@ -1,0 +1,11 @@
+---
+- name: Clone and start template
+  hosts: pve
+  become: true
+
+  tasks:
+    - name: Clone VM
+      command: qm clone 900 {{ vmid }} --full --name {{ name }}
+
+    - name: Clone VM
+      command: qm start {{ vmid }}
