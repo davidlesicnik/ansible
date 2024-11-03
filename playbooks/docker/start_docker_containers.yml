@@ -26,6 +26,6 @@
 
     - name: Start each docker-compose service
       ansible.builtin.command:
-        cmd: docker-compose up -d
+        cmd: docker compose up -d
         chdir: "{{ item.path | dirname }}"
       loop: "{{ compose_files.files }}"

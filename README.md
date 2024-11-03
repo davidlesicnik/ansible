@@ -26,3 +26,7 @@ Just a little private ansible repo for my home server.
 8. Starts all docker containers
 
 Get the plex code from plex.tv/claim and send it in as an extra variable 
+
+
+
+    ansible-playbook playbooks/docker/init.yml --ask-vault-pass -e "plex=claim-afL9Z5pdW6_P-g_z_w8y"
