@@ -4,6 +4,13 @@
   become: true
 
   tasks:
+    - name: Stop old VM (if exists)
+      command: qm stop {{vmid}}
+
+    - name: Destory old VM (if exists)
+      command: qm destroy {{ vmid }}
+
+
     - name: Clone VM
       command: qm clone 900 {{ vmid }} --full --name {{ vm_name }}
 
