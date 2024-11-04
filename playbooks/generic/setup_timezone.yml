@@ -1,0 +1,10 @@
+---
+- name: Setup timezone
+  hosts: "{{ target_hosts | default('all') }}"
+  become: true
+
+  tasks:
+  - name: Set timezone to Europe/Vienna
+    become: true
+    community.general.timezone:
+      name: Europe/Vienna
