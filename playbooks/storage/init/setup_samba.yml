@@ -3,26 +3,48 @@
   hosts: storage
   gather_facts: false
   become: true
-  
+
   tasks:
-    - name: Install Samba and related packages
-      apt:
-        name: samba
-        state: present
+  - name: Install Samba and related packages
+    apt:
+      name: samba
+      state: present
 
-    - name: Copy smb config
-      copy:
-        src: ../../files/storage/smb.conf
-        dest: /etc/samba/smb.conf
+  - name: Configure Samba global settings with Ansible ini_file module
+    ansible.builtin.ini_file:
+      path: /etc/samba/smb.conf
+      section: "global"
+      options:
+        workgroup: "WORKGROUP"
+        server string: "storage"
+        netbios name: "storage"
+        security: "user"
+        map to guest: "bad user"
+        dns proxy: "no"
 
-    - name: Restart Samba services
-      systemd:
-        name: smbd
-        state: restarted
-        enabled: yes
+  - name: Configure Samba media share with Ansible ini_file module
+    ansible.builtin.ini_file:
+      path: /etc/samba/smb.conf
+      section: "media"
+      options:
+        path: "/mnt/hdd/media"
+        browseable: "yes"
+        writable: "yes"
+        guest ok: "yes"
+        read only: "no"
+        force user: "david"
+        force group: "david"
+        create mask: "0660"
+        directory mask: "0770"
 
-    - name: Ensure the Samba service is running
-      service:
-        name: smbd
-        state: started
-        enabled: yes
+  - name: Restart Samba services
+    systemd:
+      name: smbd
+      state: restarted
+      enabled: yes
+
+  - name: Ensure the Samba service is running
+    service:
+      name: smbd
+      state: started
+      enabled: yes

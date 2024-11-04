@@ -1,0 +1,17 @@
+---
+- import_playbook: ../../pve/clone_template.yml
+  vars:
+    vmid: "300"
+    vm_name: "test"
+
+- import_playbook: ../../generic/setup_network.yml
+  vars:
+    new_hostname: "test"
+    new_ip: "192.168.10.220"
+- import_playbook: ../../generic/update_apt.yml
+  vars:
+    target_hosts: storage
+- import_playbook: ../../generic/setup_timezone.yml
+  vars:
+    target_hosts: storage
+- import_playbook: setup_samba.yml
