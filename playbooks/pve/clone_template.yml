@@ -4,19 +4,20 @@
   become: true
 
   tasks:
-    - name: Stop old VM (if exists)
-      command: qm stop {{vmid}}
+  - name: Stop old VM (if exists)
+    command: qm stop {{vmid}}
+    ignore_errors: true
 
-    - name: Destory old VM (if exists)
-      command: qm destroy {{ vmid }}
+  - name: Destory old VM (if exists)
+    command: qm destroy {{ vmid }}
+    ignore_errors: true
 
+  - name: Clone VM
+    command: qm clone 900 {{ vmid }} --full --name {{ vm_name }}
 
-    - name: Clone VM
-      command: qm clone 900 {{ vmid }} --full --name {{ vm_name }}
+  - name: Start VM
+    command: qm start {{ vmid }}
 
-    - name: Start VM
-      command: qm start {{ vmid }}
-  
-    - name: Wait for 15 seconds after a boot
-      pause:
-        seconds: 15
+  - name: Wait for 15 seconds after a boot
+    pause:
+      seconds: 15

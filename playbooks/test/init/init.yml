@@ -3,7 +3,6 @@
   vars:
     vmid: "300"
     vm_name: "test"
-
 - import_playbook: ../../generic/setup_network.yml
   vars:
     new_hostname: "test"
