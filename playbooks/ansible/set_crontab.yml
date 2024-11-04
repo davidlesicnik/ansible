@@ -12,7 +12,7 @@
 
   - name: Set HOME directory for cron jobs
     ansible.builtin.cron:
-      name: "Set working directory for all cron jobs"
+      name: "HOME"
       env: yes
       job: "/srv/ansible"
       insertafter: "SHELL"
