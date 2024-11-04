@@ -11,6 +11,9 @@
 - import_playbook: ../../generic/update_apt.yml
   vars:
     target_hosts: ansible
+- import_playbook: ../../generic/setup_timezone.yml
+  vars:
+    target_hosts: ansible
 - import_playbook: ../../generic/setup_alloy.yml
   vars:
     target_hosts: ansible

@@ -11,6 +11,9 @@
 - import_playbook: ../../generic/update_apt.yml
   vars:
     target_hosts: storage
+- import_playbook: ../../generic/setup_timezone.yml
+  vars:
+    target_hosts: storage
 - import_playbook: setup_mount_hdd.yml
 - import_playbook: setup_mount_ssd.yml
 - import_playbook: setup_mount_external.yml

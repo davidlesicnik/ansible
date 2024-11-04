@@ -11,6 +11,9 @@
 - import_playbook: ../../generic/update_apt.yml
   vars:
     target_hosts: docker
+- import_playbook: ../../generic/setup_timezone.yml
+  vars:
+    target_hosts: docker
 - import_playbook: ../../generic/setup_nfs.yml
   vars:
     target_hosts: docker
