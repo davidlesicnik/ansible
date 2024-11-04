@@ -1,6 +1,6 @@
 ---
 - name: Setup Samba
-  hosts: storage
+  hosts: test
   gather_facts: false
   become: true
 
@@ -10,32 +10,17 @@
       name: samba
       state: present
 
-  - name: Configure Samba global settings with Ansible ini_file module
-    ansible.builtin.ini_file:
-      path: /etc/samba/smb.conf
-      section: "global"
-      options:
-        workgroup: "WORKGROUP"
-        server string: "storage"
-        netbios name: "storage"
-        security: "user"
-        map to guest: "bad user"
-        dns proxy: "no"
+  - name: Ensure Samba config directory exists
+    ansible.builtin.file:
+      path: /etc/samba
+      state: directory
+      mode: '0755'
 
-  - name: Configure Samba media share with Ansible ini_file module
-    ansible.builtin.ini_file:
-      path: /etc/samba/smb.conf
-      section: "media"
-      options:
-        path: "/mnt/hdd/media"
-        browseable: "yes"
-        writable: "yes"
-        guest ok: "yes"
-        read only: "no"
-        force user: "david"
-        force group: "david"
-        create mask: "0660"
-        directory mask: "0770"
+  - name: Apply Samba configuration using template
+    ansible.builtin.template:
+      src: ../../../templates/smb.conf.j2
+      dest: /etc/samba/smb.conf
+      mode: '0600'
 
   - name: Restart Samba services
     systemd:

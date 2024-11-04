@@ -10,32 +10,47 @@
       name: samba
       state: present
 
-  - name: Configure Samba global settings with Ansible ini_file module
-    ansible.builtin.ini_file:
+  - name: Configure Samba global settings
+    community.general.ini_file:
       path: /etc/samba/smb.conf
       section: "global"
-      options:
-        workgroup: "WORKGROUP"
-        server string: "storage"
-        netbios name: "storage"
-        security: "user"
-        map to guest: "bad user"
-        dns proxy: "no"
+      section_has_values:
+      - option: "workgroup"
+        value: "WORKGROUP"
+      - option: "server string"
+        value: "storage"
+      - option: "netbios name"
+        value: "storage"
+      - option: "security"
+        value: "user"
+      - option: "map to guest"
+        value: "bad user"
+      - option: "dns proxy"
+        value: "no"
 
-  - name: Configure Samba media share with Ansible ini_file module
-    ansible.builtin.ini_file:
+  - name: Configure Samba media share settings
+    community.general.ini_file:
       path: /etc/samba/smb.conf
       section: "media"
-      options:
-        path: "/mnt/hdd/media"
-        browseable: "yes"
-        writable: "yes"
-        guest ok: "yes"
-        read only: "no"
-        force user: "david"
-        force group: "david"
-        create mask: "0660"
-        directory mask: "0770"
+      section_has_values:
+      - option: "path"
+        value: "/mnt/hdd/media"
+      - option: "browseable"
+        value: "yes"
+      - option: "writable"
+        value: "yes"
+      - option: "guest ok"
+        value: "yes"
+      - option: "read only"
+        value: "no"
+      - option: "force user"
+        value: "david"
+      - option: "force group"
+        value: "david"
+      - option: "create mask"
+        value: "0660"
+      - option: "directory mask"
+        value: "0770"
 
   - name: Restart Samba services
     systemd:
