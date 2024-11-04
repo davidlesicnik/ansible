@@ -14,7 +14,7 @@
     ansible.builtin.cron:
       name: PATH
       env: yes
-      job: /srv/ansible
+      job: "{{ ansible_env.PATH }}:/srv/ansible"
       insertafter: SHELL
 
   - name: Runs duckdns script
