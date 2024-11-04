@@ -10,12 +10,20 @@
       env: yes
       job: /bin/sh
 
+  - name: Set HOME directory for cron jobs
+    ansible.builtin.cron:
+      name: "Set working directory for all cron jobs"
+      env: yes
+      job: "/srv/ansible"
+      insertafter: "SHELL"
+
+
   - name: Sets PATH path
     ansible.builtin.cron:
       name: PATH
       env: yes
-      job: "{{ ansible_env.PATH }}:/srv/ansible"
-      insertafter: SHELL
+      job: "{{ ansible_env.PATH }}"
+      insertafter: HOME
 
   - name: Runs duckdns script
     cron:
