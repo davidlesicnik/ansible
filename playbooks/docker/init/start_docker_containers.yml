@@ -3,6 +3,11 @@
   hosts: docker
   gather_facts: false
   become: true
+  vars_files:
+  - ../../../vaults/int_vault
+  environment:
+    WIREGUARD_PW: "{{ wireguard_pw }}"
+
 
   tasks:
     - name: Copy plex env example 
