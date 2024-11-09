@@ -5,9 +5,6 @@
   become: true
   vars_files:
   - ../../../vaults/int_vault
-  environment:
-    WIREGUARD_PW: "{{ wireguard_pw }}"
-
 
   tasks:
     - name: Copy plex env example 
@@ -21,6 +18,18 @@
         path: /srv/docker/plex/.env
         regexp: 'EXAMPLE'
         replace: "{{ plex }}"
+
+    - name: Copy wireguard env example 
+      ansible.builtin.copy:
+        src: /srv/docker/wireguard/.env.example
+        dest: /srv/docker/wireguard/.env
+        remote_src: yes
+
+    - name: Replace wireguard placeholder
+      ansible.builtin.replace:
+        path: /srv/docker/wireguard/.env
+        regexp: 'EXAMPLE'
+        replace: "{{ wireguard_pw }}"
 
     - name: Find all service directories with docker-compose files
       ansible.builtin.find:
