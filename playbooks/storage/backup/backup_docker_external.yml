@@ -12,7 +12,7 @@
   - name: Prune the repo
     command: restic forget --keep-last 5 --keep-daily 5 --keep-weekly 3
       --keep-monthly 3 --prune >>
-      /var/log/ansible/restic-docker-backblaze-prune.log
+      /var/log/ansible/restic/restic-docker-backblaze-prune.log
   - name: Backup docker volumes
     command: restic backup /mnt/ssd/volumes/ >>
-      /var/log/ansible/restic-docker-backblaze-backup.log
+      /var/log/ansible/restic/restic-docker-backblaze-backup.log

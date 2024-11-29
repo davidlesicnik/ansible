@@ -11,3 +11,8 @@
 
     - name: Self-update restic to latest version
       command: restic self-update
+
+    - name: Ensure the restic backup folder exists
+      file:
+        path: "/var/log/ansible/restic"
+        state: directory
