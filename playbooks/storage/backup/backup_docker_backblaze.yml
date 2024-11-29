@@ -13,6 +13,6 @@
 
   tasks:
   - name: Prune the repo
-    shell: restic forget --keep-daily 3 --keep-weekly 1 --keep-monthly 1 --prune >> /var/log/ansible/restic/restic-docker-backblaze-prune.log
+    shell: restic forget --keep-daily 3 --keep-weekly 1 --keep-monthly 1 --prune > /var/log/ansible/restic/restic-docker-backblaze-prune.log
   - name: Backup docker volumes
-    shell: restic backup /mnt/ssd/volumes/ >> /var/log/ansible/restic/restic-docker-backblaze-backup.log
+    shell: restic backup /mnt/ssd/volumes/ > /var/log/ansible/restic/restic-docker-backblaze-backup.log
