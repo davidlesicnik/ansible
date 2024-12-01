@@ -9,8 +9,9 @@
     B2_ACCOUNT_KEY: "{{ restic_backblaze_key }}"
     RESTIC_PASSWORD: "{{ restic_docker_backblaze_pw }}"
     RESTIC_REPOSITORY: "b2:lesicnik-server:/docker"
-    RESTIC_EXCLUDE_PATTERN: "/mnt/ssd/volumes/plex_data/_data/Library/Application Support/Plex Media Server/Cache/PhotoTranscoder"
-
+    RESTIC_EXCLUDE_PATTERN: |
+      /mnt/ssd/volumes/plex_data/_data/Library/Application Support/Plex Media Server/Cache/PhotoTranscoder
+      /mnt/ssd/volumes/immich_data
   tasks:
   - name: Prune the repo
     shell: restic forget --keep-daily 3 --keep-weekly 1 --keep-monthly 1 --prune > /var/log/ansible/restic/restic-docker-backblaze-prune.log
