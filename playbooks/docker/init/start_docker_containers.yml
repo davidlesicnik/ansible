@@ -7,29 +7,29 @@
   - ../../../vaults/int_vault
 
   tasks:
-    - name: Copy plex env example 
-      ansible.builtin.copy:
-        src: /srv/docker/plex/.env.example
+    - name: Configure plex env with templated file
+      ansible.builtin.template:
+        src: ../../templates/docker/plex.env.j2
         dest: /srv/docker/plex/.env
-        remote_src: yes
+        mode: '0644'
+        force: yes 
+      register: plex_env
 
-    - name: Replace "EXAMPLE" with the value provided
-      ansible.builtin.replace:
-        path: /srv/docker/plex/.env
-        regexp: 'EXAMPLE'
-        replace: "{{ plex }}"
-
-    - name: Copy wireguard env example 
-      ansible.builtin.copy:
-        src: /srv/docker/wireguard/.env.example
+    - name: Configure wireguard env with templated file
+      ansible.builtin.template:
+        src: ../../templates/docker/wireguard.env.j2
         dest: /srv/docker/wireguard/.env
-        remote_src: yes
+        mode: '0644'
+        force: yes 
+      register: wireguard_env
 
-    - name: Replace wireguard placeholder
-      ansible.builtin.replace:
-        path: /srv/docker/wireguard/.env
-        regexp: 'EXAMPLE'
-        replace: "{{ wireguard_pw }}"
+    - name: Configure immich env with templated file
+      ansible.builtin.template:
+        src: ../../templates/docker/immich.env.j2
+        dest: /srv/docker/immich/.env
+        mode: '0644'
+        force: yes 
+      register: immich_env
 
     - name: Find all service directories with docker-compose files
       ansible.builtin.find:
