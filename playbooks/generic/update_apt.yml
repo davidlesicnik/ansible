@@ -12,3 +12,7 @@
       delay: 10
       register: upgrade_result
       until: upgrade_result is succeeded
+
+    - name: Reboot the server
+      ansible.builtin.reboot:
+        reboot_timeout: 100
