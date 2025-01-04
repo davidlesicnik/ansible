@@ -21,7 +21,7 @@
         path: /mnt/hdd
         src: "192.168.10.20:/mnt/hdd"
         fstype: nfs
-        opts: defaults,nofail
+        opts: defaults,nofail,_netdev
         state: mounted
 
     - name: Add NFS mount entry to /etc/fstab
@@ -29,5 +29,5 @@
         path: /mnt/ssd
         src: "192.168.10.20:/mnt/ssd"
         fstype: nfs
-        opts: defaults,nofail
+        opts: defaults,nofail,_netdev
         state: mounted
