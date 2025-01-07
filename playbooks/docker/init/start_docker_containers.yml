@@ -31,6 +31,14 @@
         force: yes 
       register: immich_env
 
+    - name: Configure prometheus env with templated file
+      ansible.builtin.template:
+        src: ../../../templates/docker/prometheus.env.j2
+        dest: /srv/docker/prometheus/.env
+        mode: '0644'
+        force: yes 
+      register: prometheus_env
+
     - name: Find all service directories with docker-compose files
       ansible.builtin.find:
         paths: /srv/docker/
