@@ -4,9 +4,14 @@ global:
 
 remote_write:
 - url: https://prometheus-us-central1.grafana.net/api/prom/push
+  write_relabel_configs:
+    - source_labels: ['__name__', 'instance']
+      regex: 'homeassistant_.+'
+      action: 'drop'
   basic_auth:
     username: "8516"
     password: "{{ prom_pw }}"
+    
 scrape_configs:
   - job_name: 'prometheus'
     scrape_interval: 15s
@@ -20,3 +25,5 @@ scrape_configs:
     scheme: http
     static_configs:
       - targets: ['192.168.10.10:8123']
+
+      
