@@ -1,0 +1,22 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+remote_write:
+- url: https://prometheus-us-central1.grafana.net/api/prom/push
+  basic_auth:
+    username: "8516"
+    password: "{{ prom_pw }}"
+scrape_configs:
+  - job_name: 'prometheus'
+    scrape_interval: 15s
+    static_configs:
+      - targets: [ 'localhost:9090' ]
+  - job_name: "hass"
+    scrape_interval: 60s
+    metrics_path: /api/prometheus
+    authorization:
+      credentials: "{{ hass_pw }}"
+    scheme: http
+    static_configs:
+      - targets: ['192.168.10.10:8123']
