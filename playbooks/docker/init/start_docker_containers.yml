@@ -31,6 +31,15 @@
         force: yes 
       register: immich_env
 
+    - name: Disable DNSStubListener in resolved.conf
+      ansible.builtin.command:
+      cmd: sudo sed -r -i.orig 's/#?DNSStubListener=yes/DNSStubListener=no/g' /etc/systemd/resolved.conf
+
+    - name: Restart systemd-resolved service
+      ansible.builtin.systemd:
+      name: systemd-resolved
+      state: restarted
+
     - name: Configure prometheus yml with templated file
       ansible.builtin.template:
         src: ../../../templates/docker/prometheus.yml.j2
